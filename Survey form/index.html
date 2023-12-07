@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey Form</title>
+    <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+    <h1 id="title">freeCodeCamp Survey Form Exercise</h1>
+    <p id="description">This is the survey form exercise in responsive web design course in freeCodeCamp</p>
+    <form id="survey-form" method="post">
+        <fieldset>
+            <label id="name-label" for="name">Enter your name:
+                <input id="name" name="name" type="text" placeholder="Roberto Jimenez..." required/>
+            </label>
+            <label id="email-label" for="email">Email:
+                <input id="email" name="email" type="email" placeholder="robert_jime@example.com" required/>
+            </label>
+            <label id="number-label" for="number">Age (optional)
+                <input id="number" name="age" type="number" placeholder="A number between 10 and 120" min="10" max="120"/>
+            </label>
+        </fieldset>
+        <fieldset id="dropdown">
+            <label id="dropdown" for="dropdown">Selct your role into coding...
+                <select id="drodown" name="dropdown" placeholder="Select your role">
+                    <option value="1">Student</option> 
+                    <option value="2">Professor</option>
+                    <option value="3">Working in tech</option>
+                    <option value="4">Hobby</option>
+                    <option value="5">Other</option>
+                </select>
+            </label>
+            <p id="recommendation">Would you recommend this course?</p>
+            <label for="definitely">
+                <input id="definitely" name="recommendation" type="radio" class="inline"/> Definitely
+            </label>
+            <label for="maybe">
+                <input id="maybe" name="recommendation"  type="radio" class="inline"/> Maybe
+            </label>
+            <label for="not sure">
+                <input id="not-sure" name="recommendation" type="radio" class="inline"/> Not Sure
+            </label>
+            <p id="languages">Choose coding languages you want to learn (one or more)</p>
+            <label for="html">
+                <input id="html" value="1" name="languages" type="checkbox" class="inline"/> HTML
+            </label>
+            <label for="css">
+                <input id="css" value="2" name="languages" type="checkbox" class="inline"/> CSS
+            </label>
+            <label for="java">
+                <input id="java" value="3" name="languages" type="checkbox" class="inline"/> Javascript
+            </label>
+            <label for="python">
+                <input id="python" value="4" name="languages" type="checkbox" class="inline"/> Python
+            </label>
+            <label for="php">
+                <input id="php" value="5" name="languages" type="checkbox" class="inline"/> PHP
+            </label>
+            <label for="comments">If you want to leave comments
+                <textarea id="comments" name="comments" rows="3" cols="50" placeholder="I want to have more interactive spaces..."></textarea>
+            </label>
+        </fieldset>
+        <input id="submit" type="submit" value="Submit"/>        
+    </form>    
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="styles.css">
+        <title>Technical documentation page</title>
+    </head>
+    <main id="main-doc">
+        <section id="Send_REST_requests_with_CURL" class="main-section">
+            <header><h2>Send REST Requests with cURL</h2></header>
+            <p>The examples in this guide use the cURL tool to send HTTP requests that access, create, and manipulate resources in Salesforce. If you use a different tool to send requests, you can use the same elements from the cURL examples to send requests.</p>
+            <p>cURL is pre-installed on many Linux and macOS systems. Windows users can download a version at curl.haxx.se/. When using HTTPS on Windows, ensure that your system meets the cURL requirements for SSL.</p>
+            <h3>Attaching Request Bodies</h3>
+            <p>Many examples include request bodies—JSON or XML files that contain data for the request. When using cURL, save these files to your local system and attach them to the request using the —data-binary or -d option.</p>
+            <div class="code">
+                <code>curl https://MyDomainName.my.salesforce.com/services/data/v57.0/sobjects/Account/ -H "Authorization Bearer access-token" -H “Content-Type: application/json” —data-binary @new-account.json -X POST</code>
+            </div>
+            <h3>Handling Exclamation Marks in Access Tokens</h3>
+            <p>When you run cURL examples, you can get an error on macOS and Linux systems due to the presence of the exclamation mark (!) special character in OAuth access tokens. To avoid getting this error, either escape the exclamation mark or use single quotes.</p>
+            <p>To escape the exclamation mark in the access token, insert a backslash before it (\!) when the access token is enclosed within double quotes. For example, the access token string in this cURL command has the exclamation mark (!) escaped.</p>
+            <div class="code">
+                <code>curl https://MyDomainName.my.salesforce.com/services/data/v57.0/ -H "Authorization: Bearer 00D50000000IehZ\!AQcAQH0dMHZfz972Szmpkb58urFRkgeBGsxL_QJWwYMfAbUeeG7c1E6LYUfiDUkWe6H34r1AAwOR8B8fLEz6n04NPGRrq0FM"</code>
+            </div>
+            <p>Or, you can enclose the access token within single quotes.</p>
+            <div class="code">
+                <code>curl https://MyDomainName.my.salesforce.com/services/data/v57.0/ -H 'Authorization: Bearer 00D50000000IehZ!AQcAQH0dMHZfz972Szmpkb58urFRkgeBGsxL_QJWwYMfAbUeeG7c1E6LYUfiDUkWe6H34r1AAwOR8B8fLEz6n04NPGRrq0FM'</code>
+            </div>
+        </section>
+        <section id="Configure_Salesforce_CORS_Allowlist" class="main-section">
+            <header><h2>Configure Salesforce CORS Allowlist</h2></header>
+            <p>Cross-Origin Resource Sharing (CORS) allows web browsers to request resources from other origins. For example, using CORS, the JavaScript for a web application at https://www.example.com can request a resource from https://www.salesforce.com. To allow access to supported Salesforce APIs, Apex REST resources, and Lightning Out from JavaScript code in a web browser, add the requesting origin to your Salesforce CORS allowlist. For Lightning apps that allow web browsers to make requests from their orgs, CORS allowlist prevents requests to Lightning apps unless the request comes from an approved URL.</p>
+            <p>These Salesforce technologies support CORS.</p>
+            <ul>
+                <li>Apex REST</li>
+                <li>Bulk API</li>
+                <li>Bulk API 2.0</li>
+                <li>Connect REST API</li>
+                <li>Lightning Out</li>
+                <li>Salesforce IoT REST API</li>
+                <li>CRM Analytics REST API</li>
+                <li>User Interface API</li>
+            </ul>
+            <p>Add an origin serving the request code to the CORS allowlist. If a browser that supports CORS makes a request to an origin in the allowlist, Salesforce returns the origin in the Access-Control-Allow-Origin HTTP header along with any additional CORS HTTP headers. If the origin isn’t included in the allowlist, Salesforce returns HTTP status code 403.</p>
+            <ol>
+                <li>From Setup, in the Quick Find box, enter CORS, and then select CORS.</li>
+                <li>Select <b>New</b></li>
+                <li>Enter a resource in Origin URL Pattern</li>
+                <li>Save your changes</li>
+            </ol>
+            <p>The origin URL pattern must include the HTTPS protocol (unless you’re using your localhost) and a domain name. It can also include a port. The wildcard character (*) is supported and must be in front of a second-level domain name. For example, https://*.example.com adds all subdomains of example.com to the allowlist.</p>
+            <p>The origin URL pattern can be an IP address. But an IP address and a domain that resolve to the same address aren’t the same origin, and you must add them to the CORS allowlist as separate entries.</p>
+            <p>Google Chrome™ and Mozilla® Firefox® browser extensions are allowed as resources in API version 53 (Winter ‘22) or later . Chrome extensions must use the prefix chrome-extension:// and 32 characters without digits or capital letters, for example chrome-extension://abdkkegmcbiomijcbdaodaflgehfffed. Firefox extensions must use the prefix moz-extension:// and an 8-4-4-4-12 format of small alphanumeric characters, for example moz-extension://1234ab56-78c9-1df2-3efg-4567891hi1j2.</p>
+            <p>You can get a successful response when requesting a REST resource in a CORS preflight test, but receive an unsuccessful response to the actual request. This discrepancy can occur when the resource is deleted after the preflight test and before the request is made. It can also occur if the resource doesn’t exist. A CORS preflight confirms if resources can be passed between servers, but doesn’t check if a specific resource exists or not. CORS preflight requests are typically issued automatically by a browser.</p>
+        </section>
+        <section id="Valid_Date_and_DateTime_Formats" class="main-section">
+            <header><h2>Valid Date and DateTime Formats</h2></header>
+            <p>Specify the right format for dateTime and date fields.</p>
+            <h3>dateTime</h3>
+            <p>Use the yyyy-MM-ddTHH:mm:ss.SSS+/-HH:mm or yyyy-MM-ddTHH:mm:ss.SSSZ formats to specify dateTime fields.</p>
+            <ul>
+                <li>yyyy is the four-digit year</li>
+                <li>MM is the two-digit month (01-12)</li>
+                <li>dd is the two-digit day (01-31)</li>
+                <li>T' is a separator indicating that time-of-day follows</li>
+                <li>HH is the two-digit hour (00-23)</li>
+                <li>mm is the two-digit minute (00-59)</li>
+                <li>ss is the two-digit seconds (00-59)</li>
+                <li>SSS is the optional three-digit milliseconds (000-999)</li>
+                <li>+/-HH:mm is the Zulu (UTC) time zone offset</li>
+                <li>'Z' is the reference UTC timezone</li>
+            </ul>
+            <p>When a timezone is added to a UTC dateTime, the result is the date and time in that timezone. For example, 2002-10-10T12:00:00+05:00 is 2002-10-10T07:00:00Z and 2002-10-10T00:00:00+05:00 is 2002-10-09T19:00:00Z. See W3C XML Schema Part 2: DateTime Datatype.</p>
+            <h3>date</h3>
+            <p>Use the yyyy-MM-dd format to specify date fields.</p>
+        </section>
+        <section id="Status_Codes_and_Error_Responses" class="main-section">
+            <header><h2>Status Codes and Error Responses</h2></header>
+            <p>Either when an error occurs or when a response is successful, the response header contains an HTTP code, and the response body usually contains:</p>
+            <ul>
+                <li>The HTTP response code</li>
+                <li>The message accompanying the HTTP response code</li>
+                <li>The field or object where the error occurred (if the response returns information about an error)</li>
+            </ul>
+            <h4>Incorrect ID example</h4>
+            <p>Using a non-existent ID in a request using JSON or XML (request_body.json or request_body.xml)</p>
+            <div class="code">
+                <code>[
+                {
+                  "fields" : [ "Id" ],
+                  "message" : "Account ID: id value of incorrect type: 001900K0001pPuOAAU",
+                  "errorCode" : "MALFORMED_ID"
+                }
+                ]
+                </code>
+            </div>
+            <h4>Resource does not exist</h4>
+            <p>Requesting a resource that doesn’t exist, for example, if you try to create a record using a misspelled object name</p>
+            <div class="code">
+                <code>[
+                {
+                  "message" : "The requested resource does not exist",
+                  "errorCode" : "NOT_FOUND"
+                }
+                ]
+                </code>
+            </div>
+        </section>
+        <section id="API_End_of_Life" class="main-section">
+            <header><h2>API End of Life</h2></header>
+            <p>Salesforce is committed to supporting each API version for a minimum of three years from the date of first release. In order to mature and improve the quality and performance of the API, versions that are more than three years old might cease to be supported.</p>
+            <p>When an API version is to be deprecated, advance notice is given at least one year before support ends. Salesforce will directly notify customers using API versions planned for deprecation.</p>
+        </section> 
+    </main>
+    <nav id="navbar">
+        <header><h2>Introduction to Salesforce REST API</h2></header>
+        <a class="nav-link" href="#Send_REST_requests_with_CURL">Send REST Requests with cURL</a>
+        <a class="nav-link" href="#Configure_Salesforce_CORS_Allowlist">Configure Salesforce CORS Allowlist</a>
+        <a class="nav-link" href="#Valid_Date_and_DateTime_Formats">Valid Date and DateTime Formats</a>
+        <a class="nav-link" href="#Status_Codes_and_Error_Responses">Status Codes and Error Responses</a>
+        <a class="nav-link" href="#API_End_of_Life">API End of Life</a>
+    </nav>
+</html>

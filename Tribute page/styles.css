@@ -1,0 +1,43 @@
+div[id='title']{
+    background-color: #5e0808;
+    color: white;
+    text-align: center
+  }
+  
+  h1 {
+    padding-top: 10;
+    padding-bottom: auto;
+  }
+  
+  div[id='title'] p {
+    padding-bottom: 0.8em;
+  }
+  
+  div[id='img-div'] {
+    background-color: #9b9063;
+    text-align: center;
+    color: white;
+    padding-bottom: 0.3em;  
+  }
+  
+  main {
+    background-color: #524834;
+    color: white;
+  }
+  
+  img {
+    max-height: 100%;
+    height: auto;
+    max-width: 100%;
+    width: 80%; 
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 1em
+  
+  }
+  
+  p {
+    display: block;
+    text-align: center  
+  }
