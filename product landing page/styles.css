@@ -26,13 +26,21 @@ header {
 h1 {
     color: #FFFFF0;
     text-align: center;
-    border-color: #CD7F32;
+    text-shadow:
+    -1px -1px 0 #CD7F32,
+     1px -1px 0 #CD7F32,
+    -1px  1px 0 #CD7F32,
+     1px  1px 0 #CD7F32;
 }
 
 #nav-bar {
     display: inline-block;
-    padding: 10px 15px;
-    margin: 5px;
+    padding: 1px 1px 1px 1px;
+    margin: 2px;
+    background-color: #FFFFF0;
+    color: #990000;
+    text-decoration: none;
+
 }
 
 #nav-bar ul {
